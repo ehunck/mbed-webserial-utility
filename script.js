@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     pendingData = pendingData.slice(eolIndex + 1);
 
                     if (awaitingHelpResponse) {
-                        if (line.toLowerCase().startsWith("commands:")) {
+                        if (line.toLowerCase().startsWith("false")) { // 'false' is the last default command
                             // Start processing commands after this line
                             awaitingHelpResponse = false;
                         }
