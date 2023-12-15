@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Serial Communication</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1>Serial Communication Interface</h1>
+    <button id="connectButton">Connect</button>
+    <button id="disconnectButton" disabled>Disconnect</button>
+    <button id="sendCommandButton" disabled>Send 'help' Command</button>
+    <br><br>
+    <label for="baudRate">Baud Rate:</label>
+    <select id="baudRate">
+        <option value="9600">9600</option>
+        <option value="19200">19200</option>
+        <option value="38400">38400</option>
+        <option value="57600">57600</option>
+        <option value="115200" selected>115200</option>
+    </select>
+    <br><br>
+    <div id="status">Status: Disconnected</div>
+    <br>
+    <div id="buttonsDiv"></div>
+</body>
+</html>
