@@ -1,12 +1,48 @@
+body {
+    font-family: Arial, sans-serif; /* Modern font */
+    background-color: #f0f2f5; /* Light background for the page */
+    color: #333; /* Darker text for better readability */
+    padding: 20px;
+}
+
+h1 {
+    color: #2a3f5d; /* Deep blue color for main heading */
+    text-align: center;
+}
+
+button {
+    background-color: #007bff; /* Bright blue background for buttons */
+    color: white; /* White text on buttons */
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px; /* Rounded corners for buttons */
+    cursor: pointer;
+    font-size: 15px;
+    margin-right: 10px;
+    margin-bottom: 10px; /* Space below each button, if they wrap to the next line */
+}
+
+button:hover {
+    background-color: #0056b3; /* Slightly darker blue on hover */
+}
+
+button:disabled {
+    background-color: #cccccc; /* Greyed out button when disabled */
+    cursor: default;
+}
+
 #buttonsContainer {
     border: 1px solid #ccc; /* Adds a border around the container */
     padding: 10px;         /* Adds some spacing inside the container */
     margin: 10px 0;        /* Adds some spacing outside the container */
     background-color: #f9f9f9; /* Light background color for the container */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
 }
+
 #buttonsDiv {
-    margin-top: 10px;
+    margin-top: 5px;
 }
+
 #rollingLog {
     position: fixed; /* Fix the position to the bottom of the screen */
     bottom: 0;       /* Position it at the bottom */
@@ -18,4 +54,18 @@
     border-top: 1px solid #ccc; /* Border at the top */
     padding: 10px;   /* Some internal spacing */
     box-sizing: border-box; /* Better box sizing */
+    font-size: 14px; /* Slightly smaller font for log entries */
+    border-left: 6px solid #007bff; /* Blue line on the side for emphasis */
+
+}
+
+
+select, #status {
+    font-size: 16px;
+    padding: 5px;
+}
+
+#status {
+    margin-top: 10px;
+    color: #2a3f5d; /* Deep blue color for status text */
 }
