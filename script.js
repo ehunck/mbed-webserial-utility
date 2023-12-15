@@ -76,29 +76,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createButtonWithResponse(command, note) {
         const buttonWrapper = document.createElement('div');
-
+        buttonWrapper.style.display = 'flex'; // Set display to flex for horizontal alignment
+        buttonWrapper.style.alignItems = 'center'; // Align items vertically
+        buttonWrapper.style.gap = '10px'; // Add a gap between elements
+    
         const button = document.createElement('button');
         button.textContent = command;
         button.title = note; // Set the tooltip
-
+    
         const inputField = document.createElement('input');
         inputField.type = 'text';
-        inputField.placeholder = 'Enter additional argument(s)';
-
+        inputField.placeholder = 'Enter additional string';
+    
         const responseDiv = document.createElement('div');
         responseDiv.id = `response-${command}`;
-
+        responseDiv.style.whiteSpace = 'nowrap'; // Prevent wrapping of response text
+    
         button.addEventListener('click', () => {
             let additionalString = inputField.value;
             sendCommand(command, additionalString);
         });
-
+    
         buttonWrapper.appendChild(button);
         buttonWrapper.appendChild(inputField);
         buttonWrapper.appendChild(responseDiv);
-
+    
         buttonsDiv.appendChild(buttonWrapper);
     }
+    
 
     function updateResponseDisplay(command, response) {
         const responseDiv = document.getElementById(`response-${command}`);

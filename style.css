@@ -20,6 +20,7 @@ button {
     font-size: 15px;
     margin-right: 10px;
     margin-bottom: 10px; /* Space below each button, if they wrap to the next line */
+    margin-top: 10px;
 }
 
 button:hover {
@@ -39,8 +40,18 @@ button:disabled {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
 }
 
-#buttonsDiv {
-    margin-top: 5px;
+#buttonsDiv div {
+    display: flex; /* Use flexbox for horizontal layout */
+    align-items: center; /* Align items vertically in the center */
+    gap: 10px; /* Space between button, input field, and response */
+    margin-bottom: 10px; /* Space below each set of button, input, and response */
+    margin-top: 10px
+}
+
+input[type="text"] {
+    padding: 8px; /* Padding inside the input field for consistency */
+    border-radius: 5px; /* Rounded corners for the input field */
+    border: 1px solid #ccc; /* Border for the input field */
 }
 
 #rollingLog {
