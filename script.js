@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let pendingData = '';
     let awaitingHelpResponse = false;
 
+    const logMessageIdentifiers = ["[INFO]", "[ERROR]", "[WARN]", "[DEBUG]"];
 
     async function connectSerial() {
         try {
@@ -50,10 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
         sendCommandButton.disabled = true;
     }
 
-    async function sendCommand(command) {
+    async function sendCommand(command, additionalString) {
         if (writer) {
             lastCommandSent = command; // Store the last command sent
-            await writer.write(new TextEncoder().encode(command + "\r\n"));
+            let fullCommand = command + " " + additionalString + "\r\n";
+            await writer.write(new TextEncoder().encode(fullCommand));
         }
     }
 
@@ -72,19 +74,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function createButtonWithResponse(command) {
+    function createButtonWithResponse(command, note) {
         const buttonWrapper = document.createElement('div');
+
         const button = document.createElement('button');
         button.textContent = command;
-        buttonWrapper.appendChild(button);
+        button.title = note; // Set the tooltip
+
+        const inputField = document.createElement('input');
+        inputField.type = 'text';
+        inputField.placeholder = 'Enter additional argument(s)';
 
         const responseDiv = document.createElement('div');
         responseDiv.id = `response-${command}`;
+
+        button.addEventListener('click', () => {
+            let additionalString = inputField.value;
+            sendCommand(command, additionalString);
+        });
+
+        buttonWrapper.appendChild(button);
+        buttonWrapper.appendChild(inputField);
         buttonWrapper.appendChild(responseDiv);
 
-        button.addEventListener('click', () => sendCommand(command));
-
-        return buttonWrapper;
+        buttonsDiv.appendChild(buttonWrapper);
     }
 
     function updateResponseDisplay(command, response) {
@@ -112,18 +125,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     let line = pendingData.slice(0, eolIndex).trim();
                     pendingData = pendingData.slice(eolIndex + 1);
 
-                    if (awaitingHelpResponse) {
+                    if ( logMessageIdentifiers.some(str => line.includes(str)) ) {
+                        // Line goes in the general log
+                    } else if (awaitingHelpResponse) {
+                        // Line is discarded while we wait for the message indicating the start of the commands
                         if (line.toLowerCase().startsWith("false")) { // 'false' is the last default command
                             // Start processing commands after this line
                             awaitingHelpResponse = false;
                         }
                     } else if( lastCommandSent === "" ) {
+                        // Line defines a command that can be sent
                         processLine(line); // Process the line as a command
                     }
-                    else{
+                    else if( lastCommandSent ) {
+                        // Line is a response from a command that was just sent
                         processReceivedData(line); // Process the line as a potential response
                     }
-                    
+                    else
+                    {
+                        // Line goes in the general log
+                    }
                 }
             } catch (error) {
                 console.error('Read error:', error);
@@ -146,23 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
             createButtonWithResponse(command, noteParts.join(' '));
         }
     }
-
-    function createButtonWithResponse(command, note) {
-        const buttonWrapper = document.createElement('div');
-        const button = document.createElement('button');
-        button.textContent = command;
-        button.title = note; // Set the tooltip
-        buttonWrapper.appendChild(button);
-
-        const responseDiv = document.createElement('div');
-        responseDiv.id = `response-${command}`;
-        buttonWrapper.appendChild(responseDiv);
-
-        button.addEventListener('click', () => sendCommand(command));
-
-        buttonsDiv.appendChild(buttonWrapper);
-    }
-
 
     connectButton.addEventListener('click', connectSerial);
     disconnectButton.addEventListener('click', disconnectSerial);

@@ -1,0 +1,9 @@
+#buttonsContainer {
+    border: 1px solid #ccc; /* Adds a border around the container */
+    padding: 10px;         /* Adds some spacing inside the container */
+    margin: 10px 0;        /* Adds some spacing outside the container */
+    background-color: #f9f9f9; /* Light background color for the container */
+}
+#buttonsDiv {
+    margin-top: 10px;
+}
