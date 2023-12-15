@@ -59,7 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function sendHelpCommand() {
         if (writer) {
-            buttonsDiv.innerHTML = ''; // Clear the buttonsDiv when the help command is sent
+            while (buttonsDiv.firstChild) {
+                buttonsDiv.removeChild(buttonsDiv.firstChild);
+            }
             command = "echo off\r\n";
             await writer.write(new TextEncoder().encode(command));
             command = "help\r\n";
@@ -139,13 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function processLine(line) {
-        const [command, ...noteParts] = line.split(' ');
-        if (command) {
-            createButtonWithResponse(command, noteParts.join(' '));
-        }
-    }
-
-    function processHelpLine(line) {
         const [command, ...noteParts] = line.split(' ');
         if (command) {
             createButtonWithResponse(command, noteParts.join(' '));
