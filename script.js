@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if ( logMessageIdentifiers.some(str => line.includes(str)) ) {
                         // Line goes in the general log
+                        appendToLog(line);
                     } else if (awaitingHelpResponse) {
                         // Line is discarded while we wait for the message indicating the start of the commands
                         if (line.toLowerCase().startsWith("false")) { // 'false' is the last default command
@@ -144,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     else
                     {
                         // Line goes in the general log
+                        appendToLog(line);
                     }
                 }
             } catch (error) {
@@ -167,6 +169,16 @@ document.addEventListener('DOMContentLoaded', () => {
             createButtonWithResponse(command, noteParts.join(' '));
         }
     }
+
+    function appendToLog(message) {
+        const log = document.getElementById('rollingLog');
+        const entry = document.createElement('div');
+        entry.textContent = message;
+        log.appendChild(entry);
+    
+        // Scroll to the newest entry
+        log.scrollTop = log.scrollHeight;
+    }    
 
     connectButton.addEventListener('click', connectSerial);
     disconnectButton.addEventListener('click', disconnectSerial);

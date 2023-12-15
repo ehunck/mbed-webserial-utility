@@ -7,3 +7,15 @@
 #buttonsDiv {
     margin-top: 10px;
 }
+#rollingLog {
+    position: fixed; /* Fix the position to the bottom of the screen */
+    bottom: 0;       /* Position it at the bottom */
+    left: 0;         /* Align to the left */
+    width: 100%;     /* Make it span the full width of the screen */
+    height: 33%;     /* Take up the bottom third of the screen */
+    overflow-y: auto;/* Enable vertical scrolling */
+    background-color: #f3f3f3; /* Light background color */
+    border-top: 1px solid #ccc; /* Border at the top */
+    padding: 10px;   /* Some internal spacing */
+    box-sizing: border-box; /* Better box sizing */
+}
