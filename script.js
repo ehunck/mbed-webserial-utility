@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let pendingData = '';
     let awaitingHelpResponse = false;
 
-    const logMessageIdentifiers = ["[INFO]", "[ERROR]", "[WARN]", "[DEBUG]"];
+    const logMessageIdentifiers = ["[INFO]", "[ERR ]", "[WARN]", "[DBG ]"];
 
     async function connectSerial() {
         try {
