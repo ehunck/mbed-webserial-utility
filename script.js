@@ -78,11 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const buttonWrapper = document.createElement('div');
         buttonWrapper.style.display = 'flex'; // Set display to flex for horizontal alignment
         buttonWrapper.style.alignItems = 'center'; // Align items vertically
-        buttonWrapper.style.gap = '10px'; // Add a gap between elements
+        buttonWrapper.style.gap = '4px'; // Add a gap between elements
     
         const button = document.createElement('button');
         button.textContent = command;
         button.title = note; // Set the tooltip
+        button.style.marginBottom = '2px';
+        button.style.marginTop = '2px';
+        button.style.marginLeft = '2px';
+        button.style.marginRight = '2px';
     
         const inputField = document.createElement('input');
         inputField.type = 'text';
@@ -176,15 +180,70 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function appendToLog(message) {
-        const log = document.getElementById('rollingLog');
+        const log = document.getElementById('logContent');
         const entry = document.createElement('div');
-        entry.textContent = message;
+    
+        // Get current Unix timestamp in seconds
+        const unixTimestamp = Math.floor(Date.now() / 1000);
+    
+        // Prepend the timestamp to the message
+        entry.textContent = `${unixTimestamp}: ${message}`;
+        
         log.appendChild(entry);
     
         // Scroll to the newest entry
         log.scrollTop = log.scrollHeight;
-    }    
+    }
 
+    document.getElementById('clearLogButton').addEventListener('click', () => {
+        document.getElementById('logContent').innerHTML = '';
+    });
+    
+    document.getElementById('saveLogButton').addEventListener('click', () => {
+        const logContent = document.getElementById('logContent').innerText;
+        const blob = new Blob([logContent], { type: 'text/plain' });
+    
+        // Get current Unix timestamp in seconds
+        const unixTimestamp = Math.floor(Date.now() / 1000);
+    
+        // Generate the filename with the current Unix timestamp
+        const fileName = `log_${unixTimestamp}.txt`;
+    
+        const fileUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = fileUrl;
+        a.download = fileName; // Use the dynamically generated filename
+        a.click();
+    
+        URL.revokeObjectURL(fileUrl);
+    });
+    
+
+    let isDragging = false;
+
+    document.getElementById('resizeHandle').addEventListener('mousedown', function(e) {
+        isDragging = true;
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (isDragging) {
+            const windowHeight = window.innerHeight;
+            const handleHeight = 10; // Height of the handle
+            let newHeight = (windowHeight - e.clientY - handleHeight) / windowHeight * 100;
+            
+            // Constrain the height between 10% and 60%
+            newHeight = Math.max(10, Math.min(newHeight, 60));
+
+            document.getElementById('rollingLog').style.height = `${newHeight}%`;
+            document.getElementById('resizeHandle').style.bottom = `${newHeight}%`;
+        }
+    });
+
+    document.addEventListener('mouseup', function(e) {
+        isDragging = false;
+    });
+
+    
     connectButton.addEventListener('click', connectSerial);
     disconnectButton.addEventListener('click', disconnectSerial);
     sendCommandButton.addEventListener('click', sendHelpCommand);

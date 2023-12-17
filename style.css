@@ -1,41 +1,51 @@
 body {
-    font-family: Arial, sans-serif; /* Modern font */
-    background-color: #f0f2f5; /* Light background for the page */
-    color: #333; /* Darker text for better readability */
-    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    padding: 10px; /* Reduced padding */
+    margin: 0; /* Remove default margin */
 }
 
 h1 {
-    color: #2a3f5d; /* Deep blue color for main heading */
-    text-align: center;
+    color: #2a3f5d;
+    margin-bottom: 4px; /* Reduced margin below the title */
+    margin-top: 4px; /* Reduced margin below the title */
+    font-size: 24px; /* Adjust the font size if needed */
+}
+
+h2 {
+    color: #2a3f5d;
+    margin-bottom: 4px; /* Reduced margin below the title */
+    margin-top: 4px; /* Reduced margin below the title */
+    font-size: 18px; /* Adjust the font size if needed */
 }
 
 button {
-    background-color: #007bff; /* Bright blue background for buttons */
+    background-color: #1e6b93; /* Bright blue background for buttons */
     color: white; /* White text on buttons */
     border: none;
     padding: 8px 15px;
     border-radius: 5px; /* Rounded corners for buttons */
     cursor: pointer;
-    font-size: 15px;
+    font-size: 14px;
     margin-right: 10px;
     margin-bottom: 10px; /* Space below each button, if they wrap to the next line */
     margin-top: 10px;
 }
 
 button:hover {
-    background-color: #0056b3; /* Slightly darker blue on hover */
+    background-color: #124058; /* Slightly darker blue on hover */
 }
 
 button:disabled {
-    background-color: #cccccc; /* Greyed out button when disabled */
+    background-color: #aaccde; /* Greyed out button when disabled */
     cursor: default;
 }
 
 #buttonsContainer {
     border: 1px solid #ccc; /* Adds a border around the container */
     padding: 10px;         /* Adds some spacing inside the container */
-    margin: 10px 0;        /* Adds some spacing outside the container */
+    margin: 0px 0;        /* Adds some spacing outside the container */
     background-color: #f9f9f9; /* Light background color for the container */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
 }
@@ -43,9 +53,10 @@ button:disabled {
 #buttonsDiv div {
     display: flex; /* Use flexbox for horizontal layout */
     align-items: center; /* Align items vertically in the center */
-    gap: 10px; /* Space between button, input field, and response */
-    margin-bottom: 10px; /* Space below each set of button, input, and response */
-    margin-top: 10px
+    gap: 4px; /* Space between button, input field, and response */
+    margin-bottom: 4px; /* Space below each set of button, input, and response */
+    margin-top: 4px
+    margin-left: 4px
 }
 
 input[type="text"] {
@@ -59,17 +70,32 @@ input[type="text"] {
     bottom: 0;       /* Position it at the bottom */
     left: 0;         /* Align to the left */
     width: 100%;     /* Make it span the full width of the screen */
-    height: 33%;     /* Take up the bottom third of the screen */
-    overflow-y: auto;/* Enable vertical scrolling */
+    height: 30%;     /* Take up the bottom third of the screen */
     background-color: #f3f3f3; /* Light background color */
     border-top: 1px solid #ccc; /* Border at the top */
     padding: 10px;   /* Some internal spacing */
     box-sizing: border-box; /* Better box sizing */
-    font-size: 14px; /* Slightly smaller font for log entries */
-    border-left: 6px solid #007bff; /* Blue line on the side for emphasis */
-
+    font-size: 12px; /* Slightly smaller font for log entries */
+    border-left: 10px solid #aaccde; 
+    padding-bottom: 50px; /* Space for the controls */
 }
 
+#logContent {
+    height:  100%;
+    overflow-y: auto; /* Enable vertical scrolling for log messages */
+    padding: 10px 10px 10px 10px; 
+    box-sizing: border-box;
+}
+
+#resizeHandle {
+    position: fixed;
+    bottom: 30%; /* Initial height of the log */
+    left: 0;
+    width: 100%;
+    height: 4px; /* Height of the draggable handle */
+    background-color: #808080; /* Styling for the handle */
+    cursor: ns-resize; /* Cursor indicates resizable area */
+}
 
 select, #status {
     font-size: 16px;
@@ -79,4 +105,21 @@ select, #status {
 #status {
     margin-top: 10px;
     color: #2a3f5d; /* Deep blue color for status text */
+}
+
+#rollingLogControls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f3f3f3; /* Match the log's color or choose another */
+    text-align: left;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ccc;
+}
+
+#rollingLogControls button {
+    margin: 0 5px; /* Spacing between buttons */
+    padding: 4px 15px;
 }

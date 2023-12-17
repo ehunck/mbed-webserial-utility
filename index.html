@@ -10,7 +10,7 @@
     <button id="connectButton">Connect</button>
     <button id="disconnectButton" disabled>Disconnect</button>
     <button id="sendCommandButton" disabled>Refresh Commands</button>
-    <br><br>
+    <br>
     <label for="baudRate">Baud Rate:</label>
     <select id="baudRate">
         <option value="9600">9600</option>
@@ -19,14 +19,21 @@
         <option value="57600">57600</option>
         <option value="115200" selected>115200</option>
     </select>
-    <br><br>
     <div id="status">Status: Disconnected</div>
-    <br>
     <h2>Commands</h2>
     <div id="buttonsContainer">
         <div id="buttonsDiv"></div>
     </div>
 </body>
 <!-- Rolling Log Container -->
-<div id="rollingLog"></div>
+<div id="resizeHandle"></div>
+<div id="rollingLog">
+    <div id="logContent"> <!-- Container for log messages -->
+        <!-- Log messages will go here -->
+    </div>
+    <div id="rollingLogControls">
+        <button id="clearLogButton">Clear Log</button>
+        <button id="saveLogButton">Save Log</button>
+    </div>
+</div>
 </html>
