@@ -116,6 +116,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function filterEscapeSequences(text) {
+        // Define the regular expressions for the sequences
+        const escapeSequence0 = /\x1B\[2J/g; // Matches '\x1B[2J'
+        const escapeSequence1 = /\x1B\[2K/g; // Matches '\x1B[2K'
+        const escapeSequence2 = /\x1B\[0m/g; // Matches '\x1B[0m'
+        const escapeSequence3 = /\x1B\[31m/g; // Matches '\x1B[31m'
+        const escapeSequence4 = /\x1B\[33m/g; // Matches '\x1B[33m'
+        const escapeSequence5 = /\x1B\[94m/g; // Matches '\x1B[94m'
+        const escapeSequence6 = /\x1B\[7h/g; // Matches '\x1B[94m'
+        // Replace the sequences with an empty string
+        return text.replace(escapeSequence0, '').replace(escapeSequence1, '').replace(escapeSequence2, '').replace(escapeSequence3, '').replace(escapeSequence4, '').replace(escapeSequence5, '').replace(escapeSequence6, '');
+    }
+
     async function readSerial() {
         const decoder = new TextDecoder();
 
@@ -133,6 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 while ((eolIndex = pendingData.indexOf('\n')) >= 0) {
                     let line = pendingData.slice(0, eolIndex).trim();
                     pendingData = pendingData.slice(eolIndex + 1);
+                    
+                    line = filterEscapeSequences(line); // filter escaped sequences
 
                     if ( logMessageIdentifiers.some(str => line.includes(str)) ) {
                         // Line goes in the general log
